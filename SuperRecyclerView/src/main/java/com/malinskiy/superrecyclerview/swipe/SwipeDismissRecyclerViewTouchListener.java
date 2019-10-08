@@ -16,21 +16,22 @@
 
 package com.malinskiy.superrecyclerview.swipe;
 
-import com.nineoldandroids.animation.Animator;
-import com.nineoldandroids.animation.AnimatorListenerAdapter;
-import com.nineoldandroids.animation.ValueAnimator;
-
 import android.annotation.SuppressLint;
 import android.graphics.Rect;
 import android.os.SystemClock;
-import android.support.annotation.NonNull;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v7.widget.RecyclerView;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
 import android.view.ViewConfiguration;
 import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.core.view.MotionEventCompat;
+import androidx.recyclerview.widget.RecyclerView;
+
+import com.nineoldandroids.animation.Animator;
+import com.nineoldandroids.animation.AnimatorListenerAdapter;
+import com.nineoldandroids.animation.ValueAnimator;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -44,26 +45,26 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
     public static final int INVALID_POSITION = -1;
 
     // Cached ViewConfiguration and system-wide constant values
-    private int  mSlop;
-    private int  mMinFlingVelocity;
-    private int  mMaxFlingVelocity;
+    private int mSlop;
+    private int mMinFlingVelocity;
+    private int mMaxFlingVelocity;
     private long mAnimationTime;
 
     // Fixed properties
-    private RecyclerView     mRecyclerView;
+    private RecyclerView mRecyclerView;
     private DismissCallbacks mCallbacks;
     private int mViewWidth = 1; // 1 and not 0 to prevent dividing by zero
 
     // Transient properties
     private List<PendingDismissData> mPendingDismisses = new ArrayList<>();
-    private int                      mDismissAnimationRefCount = 0;
-    private float           mDownX;
-    private float           mDownY;
-    private boolean         mSwiping;
+    private int mDismissAnimationRefCount = 0;
+    private float mDownX;
+    private float mDownY;
+    private boolean mSwiping;
     private VelocityTracker mVelocityTracker;
-    private int             mDownPosition;
-    private View            mDownView;
-    private boolean         mPaused;
+    private int mDownPosition;
+    private View mDownView;
+    private boolean mPaused;
 
     /**
      * The callback interface used by {@link SwipeDismissRecyclerViewTouchListener} to inform its client
@@ -144,7 +145,7 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
 
         switch (MotionEventCompat.getActionMasked(motionEvent)) {
             case MotionEvent.ACTION_DOWN: {
-                if (mPaused)  return false;
+                if (mPaused) return false;
                 caseMotionActionDown(motionEvent);
                 return false;
             }
@@ -266,7 +267,7 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
 
 
     class PendingDismissData implements Comparable<PendingDismissData> {
-        public int  position;
+        public int position;
         public View view;
 
         public PendingDismissData(int position, View view) {
@@ -323,7 +324,7 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
                     // Send a cancel event
                     long time = SystemClock.uptimeMillis();
                     MotionEvent cancelEvent = MotionEvent.obtain(time, time,
-                                                                 MotionEvent.ACTION_CANCEL, 0, 0, 0);
+                            MotionEvent.ACTION_CANCEL, 0, 0, 0);
                     mRecyclerView.dispatchTouchEvent(cancelEvent);
 
                     mPendingDismisses.clear();
@@ -342,7 +343,7 @@ public class SwipeDismissRecyclerViewTouchListener implements View.OnTouchListen
         mPendingDismisses.add(new PendingDismissData(dismissPosition, dismissView));
         animator.start();
     }
-    
+
     private void caseMotionActionDown(MotionEvent motionEvent) {
         // Find the child view that was touched (perform a hit test)
         Rect rect = new Rect();

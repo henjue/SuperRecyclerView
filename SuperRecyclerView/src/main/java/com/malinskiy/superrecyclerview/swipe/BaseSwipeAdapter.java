@@ -1,7 +1,8 @@
 package com.malinskiy.superrecyclerview.swipe;
 
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.malinskiy.superrecyclerview.R;
 
@@ -70,10 +71,10 @@ public abstract class BaseSwipeAdapter<VH extends BaseSwipeAdapter.BaseSwipeable
 
     public static class BaseSwipeableViewHolder extends RecyclerView.ViewHolder {
 
-        public SwipeLayout               swipeLayout      = null;
-        public SwipeLayout.OnLayout      onLayoutListener = null;
-        public SwipeLayout.SwipeListener swipeMemory      = null;
-        public int                       position         = -1;
+        public SwipeLayout swipeLayout = null;
+        public SwipeLayout.OnLayout onLayoutListener = null;
+        public SwipeLayout.SwipeListener swipeMemory = null;
+        public int position = -1;
 
         public BaseSwipeableViewHolder(View itemView) {
             super(itemView);

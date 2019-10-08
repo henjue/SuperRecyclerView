@@ -19,8 +19,8 @@ android {
 }
 
 dependencies {
-    compile libraries.supportRecyclerView
-    compile libraries.nineOldAndroids
+    implementation libraries.supportRecyclerView
+    implementation libraries.nineOldAndroids
 }
 
 if (JavaVersion.current().isJava8Compatible()) {

@@ -1,14 +1,8 @@
 package com.malinskiy.superrecyclerview.swipe;
 
-import com.malinskiy.superrecyclerview.R;
-import com.malinskiy.superrecyclerview.util.FloatUtil;
-
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Rect;
-import android.support.v4.view.MotionEventCompat;
-import android.support.v4.view.ViewCompat;
-import android.support.v4.widget.ViewDragHelper;
 import android.util.AttributeSet;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
@@ -20,6 +14,13 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.FrameLayout;
 import android.widget.ListAdapter;
+
+import androidx.core.view.MotionEventCompat;
+import androidx.core.view.ViewCompat;
+import androidx.customview.widget.ViewDragHelper;
+
+import com.malinskiy.superrecyclerview.R;
+import com.malinskiy.superrecyclerview.util.FloatUtil;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -37,10 +38,10 @@ public class SwipeLayout extends FrameLayout {
     private float mHorizontalSwipeOffset;
     private float mVerticalSwipeOffset;
 
-    private List<SwipeListener>                    mSwipeListeners  = new ArrayList<>();
-    private List<SwipeDenier>                      mSwipeDeniers    = new ArrayList<>();
+    private List<SwipeListener> mSwipeListeners = new ArrayList<>();
+    private List<SwipeDenier> mSwipeDeniers = new ArrayList<>();
     private Map<View, ArrayList<OnRevealListener>> mRevealListeners = new HashMap<>();
-    private Map<View, Boolean>                     mShowEntirely    = new HashMap<>();
+    private Map<View, Boolean> mShowEntirely = new HashMap<>();
 
     private DoubleClickListener mDoubleClickListener;
 
@@ -372,15 +373,15 @@ public class SwipeLayout extends FrameLayout {
         boolean r = false;
         if (getShowMode() == ShowMode.LayDown) {
             if ((edge == DragEdge.Right && surfaceRight <= childLeft)
-                || (edge == DragEdge.Left && surfaceLeft >= childRight)
-                || (edge == DragEdge.Top && surfaceTop >= childBottom)
-                || (edge == DragEdge.Bottom && surfaceBottom <= childTop))
+                    || (edge == DragEdge.Left && surfaceLeft >= childRight)
+                    || (edge == DragEdge.Top && surfaceTop >= childBottom)
+                    || (edge == DragEdge.Bottom && surfaceBottom <= childTop))
                 r = true;
         } else if (getShowMode() == ShowMode.PullOut) {
             if ((edge == DragEdge.Right && childRight <= getWidth())
-                || (edge == DragEdge.Left && childLeft >= getPaddingLeft())
-                || (edge == DragEdge.Top && childTop >= getPaddingTop())
-                || (edge == DragEdge.Bottom && childBottom <= getHeight()))
+                    || (edge == DragEdge.Left && childLeft >= getPaddingLeft())
+                    || (edge == DragEdge.Top && childTop >= getPaddingTop())
+                    || (edge == DragEdge.Bottom && childBottom <= getHeight()))
                 r = true;
         }
         return r;
@@ -747,7 +748,7 @@ public class SwipeLayout extends FrameLayout {
         int left = loc[0], top = loc[1];
 
         if (event.getRawX() > left && event.getRawX() < left + v.getWidth()
-            && event.getRawY() > top && event.getRawY() < top + v.getHeight()) {
+                && event.getRawY() > top && event.getRawY() < top + v.getHeight()) {
             return v.onTouchEvent(event);
         }
 
@@ -778,7 +779,7 @@ public class SwipeLayout extends FrameLayout {
 
         switch (action) {
             case MotionEvent.ACTION_DOWN:
-                caseMotionActionDown(event,parent,touching);
+                caseMotionActionDown(event, parent, touching);
                 return true;
             case MotionEvent.ACTION_MOVE: {
                 if (FloatUtil.compareFloats(sX, -1) || FloatUtil.compareFloats(sY, -1)) {
@@ -786,7 +787,7 @@ public class SwipeLayout extends FrameLayout {
                     return true;
                 }
                 boolean doNothing = caseMotionActionMoveSecondBranch(event, status, parent, touching);
-                if(doNothing) return false;
+                if (doNothing) return false;
                 break;
             }
             case MotionEvent.ACTION_UP:
@@ -940,7 +941,7 @@ public class SwipeLayout extends FrameLayout {
                 AdapterView view = (AdapterView) t;
                 int p = view.getPositionForView(SwipeLayout.this);
                 if (p != AdapterView.INVALID_POSITION &&
-                    view.performItemClick(view.getChildAt(p - view.getFirstVisiblePosition()), p, view.getAdapter().getItemId(p)))
+                        view.performItemClick(view.getChildAt(p - view.getFirstVisiblePosition()), p, view.getAdapter().getItemId(p)))
                     return;
             } else {
                 if (t instanceof View && ((View) t).performClick())
@@ -991,7 +992,7 @@ public class SwipeLayout extends FrameLayout {
                 ViewGroup bottom = getBottomView();
                 ViewGroup surface = getSurfaceView();
                 if (e.getX() > bottom.getLeft() && e.getX() < bottom.getRight()
-                    && e.getY() > bottom.getTop() && e.getY() < bottom.getBottom()) {
+                        && e.getY() > bottom.getTop() && e.getY() < bottom.getBottom()) {
                     target = bottom;
                 } else {
                     target = surface;
@@ -1063,7 +1064,7 @@ public class SwipeLayout extends FrameLayout {
             return Status.Close;
 
         if (surfaceLeft == (getPaddingLeft() - mDragDistance) || surfaceLeft == (getPaddingLeft() + mDragDistance)
-            || surfaceTop == (getPaddingTop() - mDragDistance) || surfaceTop == (getPaddingTop() + mDragDistance))
+                || surfaceTop == (getPaddingTop() - mDragDistance) || surfaceTop == (getPaddingTop() + mDragDistance))
             return Status.Open;
 
         return Status.Middle;

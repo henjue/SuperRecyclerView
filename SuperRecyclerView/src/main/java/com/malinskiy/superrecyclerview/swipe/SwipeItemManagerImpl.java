@@ -1,6 +1,6 @@
 package com.malinskiy.superrecyclerview.swipe;
 
-import android.support.v7.widget.RecyclerView;
+import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,8 +18,8 @@ public class SwipeItemManagerImpl implements SwipeItemManagerInterface {
 
     protected int mOpenPosition = INVALID_POSITION;
 
-    protected Set<Integer>     mOpenPositions = new HashSet<>();
-    protected Set<SwipeLayout> mShownLayouts  = new HashSet<>();
+    protected Set<Integer> mOpenPositions = new HashSet<>();
+    protected Set<SwipeLayout> mShownLayouts = new HashSet<>();
 
     protected RecyclerView.Adapter mAdapter;
 
